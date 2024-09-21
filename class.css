@@ -4,7 +4,7 @@
 }
 body {
     font-family: cursive;
-    background-image: url(/1420574-hacker-background-1920x1080-laptop.jpg); 
+    background-image: url(Background.jpg); 
     background-color: black;
     background-position: center;
     background-repeat: no-repeat;
@@ -19,7 +19,7 @@ body {
     
 }
 header {
-    background-image: url(/hacker-hooded-sweatshirt-glasses-banner-made-with-generative-ai_155027-3515.jpg) ;
+    background-image: url(Hacker1.jpg) ;
     background-repeat:no-repeat;
     background-position: center;
     mix-blend-mode:screen;
@@ -55,11 +55,11 @@ section p {
    
 }
 
-.project {
+.Skills {
     margin-bottom: 100;
 }
 
-.project h3 {
+.Skills h3 {
     font-size: 1.5em;
 }
 /**this is button**/

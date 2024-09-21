@@ -123,6 +123,9 @@ section p {
     h1 {
         font-size: 2em;
     }
+    body {
+        font-family:Arial, Helvetica, sans-serif;
+    }
     
     h4 {
         font-size: 1.5em;
@@ -147,6 +150,9 @@ section p {
 @media (max-width: 480px) {
     h1 {
         font-size: 1.5em;
+    }
+    body {
+        font-family:Arial, Helvetica, sans-serif;
     }
 
     h4 {

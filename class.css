@@ -113,6 +113,62 @@ section p {
     -webkit-box-reflect: below 1px linear-gradient(transparent, #0005); 
   }
 
+ 
 
+ 
+/* Media Queries */
 
+/* For tablets */
+@media (max-width: 768px) {
+    h1 {
+        font-size: 2em;
+    }
+    
+    h4 {
+        font-size: 1.5em;
+    }
+
+    section h2 {
+        font-size: 2em;
+    }
+
+    section p {
+        font-size: 1.2em;
+    }
+
+    a {
+        padding: 15px 20px;
+        font-size: 20px;
+        margin: 20px;
+    }
+}
+
+/* For mobile devices */
+@media (max-width: 480px) {
+    h1 {
+        font-size: 1.5em;
+    }
+
+    h4 {
+        font-size: 1.2em;
+    }
+
+    section h2 {
+        font-size: 1.5em;
+    }
+
+    section p {
+        font-size: 1em;
+    }
+
+    a {
+        padding: 10px 15px;
+        font-size: 18px;
+        margin: 10px;
+    }
+
+    .btns {
+        flex-direction: column;
+    }
+}
 

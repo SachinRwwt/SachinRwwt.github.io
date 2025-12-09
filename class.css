@@ -1,189 +1,152 @@
-*{
-    margin: 0%;
-    padding: 0%;
-}
+/* Base */
 body {
-    font-family: cursive;
-    background-image: url(Background.jpg); 
-    background-color: black;
-    background-position: center;
-    background-repeat: no-repeat;
-    background-size: auto;
-    color: #fff;
-}
-.container {
-    max-width: 800px;
-    margin: 0 auto;
-    padding-top: 60px;
-    background-position: center;
-    
-}
-header {
-    background-image: url(Hacker1.jpg) ;
-    background-repeat:no-repeat;
-    background-position: center;
-    mix-blend-mode:screen;
-    padding-top:10%;
-    background-size: cover;
-    text-align: left;
-   
-}
-h1 {
-    font-size: 2.5em;
-    text-shadow: 3px 3px 2px black;
+    background-color: #050505;
 }
 
-h4{
-
-    font-size: 1.8em;
-    text-shadow: 3px 3px 2px black;
-
+/* Scrollbar */
+::-webkit-scrollbar {
+    width: 6px;
 }
-section {
-    
-    text-shadow: 3px 3px 2px blue;
+::-webkit-scrollbar-track {
+    background: #050505;
 }
-section h2 {
-    font-size: 2em;
-    text-align: center;
-    font-size: 2.5em;
-    
-    
+::-webkit-scrollbar-thumb {
+    background: #1a1a1a;
+    border-radius: 3px;
 }
-section p {
-    font-size: 1.5em;
-   
+::-webkit-scrollbar-thumb:hover {
+    background: #00ff41;
 }
 
-.Skills {
-    margin-bottom: 100;
-}
-
-.Skills h3 {
-    font-size: 1.5em;
-}
-/**this is button**/
-  
-  
-  p{
-    color: #fff;
-    text-align:center;
-    margin-top: 10px
-  }
-  
-  a {
+/* Nav Links */
+.nav-link {
+    color: #a1a1aa;
+    transition: color 0.3s;
     position: relative;
-    display: inline-block;
-    padding: 25px 30px;
-    margin: 40px;
-    font-size: 24px;
-    text-decoration: none;
-    text-transform: uppercase;
-    letter-spacing: 1px;
-    transition: 0.5s;
-  }
-  
-  .btns{
+}
+.nav-link:hover {
+    color: #00ff41;
+    text-shadow: 0 0 10px rgba(0, 255, 65, 0.5);
+}
+.nav-link::before {
+    content: '[';
+    margin-right: 2px;
+    color: #00ff41;
+    opacity: 0;
+    transition: opacity 0.3s;
+}
+.nav-link::after {
+    content: ']';
+    margin-left: 2px;
+    color: #00ff41;
+    opacity: 0;
+    transition: opacity 0.3s;
+}
+.nav-link:hover::before,
+.nav-link:hover::after {
+    opacity: 1;
+}
+
+/* Tools Badges (Skill Section) */
+.tool-badge {
+    border: 1px solid #1a1a1a;
+    background: rgba(255,255,255,0.02);
+    color: #888;
+    padding: 6px 12px;
+    border-radius: 9999px; /* Rounded full */
+    font-size: 10px;
+    font-family: 'JetBrains Mono', monospace;
+    font-weight: bold;
+    cursor: default;
+    transition: all 0.3s;
+}
+.tool-badge:hover {
+    border-color: #00ff41;
+    color: #00ff41;
+    background: rgba(0, 255, 65, 0.05);
+    box-shadow: 0 0 10px rgba(0, 255, 65, 0.1);
+}
+
+/* Social Buttons (Contact) */
+.social-btn {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    border: 1px solid #1a1a1a;
     display: flex;
-    justify-content: center;
     align-items: center;
-    min-height: 90vh;
-    flex-direction: row;  
-  }
-  .blue-btn{
-    color: #03e9f4;
-    border: 1.5px solid #03e9f4;
-    border-radius: 7px;  
-  }
-  .blue-btn:hover{
-    background-color: #03e9f4;
-    color: #050801;
-    box-shadow: 0px 0px 5px #03e9f4, 0px 0px 25px #03e9f4, 0px 0px 50px #03e9f4, 0px 0px 100px #03e9f4;
-    -webkit-box-reflect: below 1px linear-gradient(transparent, #0005); 
-  }
-  .pink-btn{
-    color: #e100ff;
-    border: 1.5px solid #e100ff;
-    border-radius: 7px;  
-  }
-  .pink-btn:hover{
-    background-color: #e100ff;
-    color: #050801;
-    box-shadow: 0px 0px 5px #e100ff, 0px 0px 25px #e100ff, 0px 0px 50px #e100ff, 0px 0px 100px #e100ff;
-    -webkit-box-reflect: below 1px linear-gradient(transparent, #0005); 
-  }
-
- 
-
- 
-/* Media Queries */
-
-/* For tablets */
-@media (max-width: 768px) {
-
-    *{
-        margin: auto;
-        padding: 0%;
-    }
-    h1 {
-        font-size: 2em;
-    }
-    body {
-        font-family:Arial, Helvetica, sans-serif;
-    }
-    
-    h4 {
-        font-size: 1.5em;
-    }
-
-    section h2 {
-        font-size: 2em;
-    }
-
-    section p {
-        font-size: 1.2em;
-    }
-
-    a {
-        padding: 15px 20px;
-        font-size: 20px;
-        margin: 20px;
-    }
+    justify-content: center;
+    color: #00ff41;
+    transition: all 0.3s;
+}
+.social-btn:hover {
+    border-color: #00ff41;
+    background: #00ff41;
+    color: black;
+    box-shadow: 0 0 15px rgba(0, 255, 65, 0.5);
+    transform: translateY(-3px);
 }
 
-/* For mobile devices */
-@media (max-width: 480px) {
-    *{
-        margin: 0.2em;
-       padding: 0;
-    }
-    h1 {
-        font-size: 1.5em;
-    }
-    body {
-        font-family:Arial, Helvetica, sans-serif;
-    }
-
-    h4 {
-        font-size: 1.2em;
-    }
-
-    section h2 {
-        font-size: 1.5em;
-    }
-
-    section p {
-        font-size: 1em;
-    }
-
-    a {
-        padding: 10px 15px;
-        font-size: 18px;
-        margin: 10px;
-    }
-
-    .btns {
-        flex-direction: column;
-    }
+/* Matrix Canvas */
+#matrix-canvas {
+    position: fixed;
+    top: 0; left: 0;
+    width: 100%; height: 100%;
+    z-index: 0;
+    opacity: 0.1;
+    pointer-events: none;
 }
 
+/* CRT Scanlines */
+.scanlines {
+    background: linear-gradient(
+        to bottom,
+        rgba(255,255,255,0),
+        rgba(255,255,255,0) 50%,
+        rgba(0,0,0,0.1) 50%,
+        rgba(0,0,0,0.1)
+    );
+    background-size: 100% 4px;
+    position: fixed;
+    inset: 0;
+    pointer-events: none;
+    z-index: 9998;
+    opacity: 0.4;
+}
+
+.vignette {
+    position: fixed;
+    inset: 0;
+    background: radial-gradient(circle, transparent 60%, rgba(0,0,0,0.8) 100%);
+    pointer-events: none;
+    z-index: 9999;
+}
+
+/* Glitch Text */
+.glitch-wrapper { position: relative; }
+.glitch-text { position: relative; }
+.glitch-text::before, .glitch-text::after {
+    content: attr(data-text);
+    position: absolute;
+    top: 0; left: 0; width: 100%; height: 100%;
+}
+.glitch-text::before {
+    left: 2px;
+    text-shadow: -1px 0 #ff00c1;
+    clip-path: inset(44% 0 61% 0);
+    animation: glitch-anim 4s infinite linear alternate-reverse;
+}
+.glitch-text::after {
+    left: -2px;
+    text-shadow: -1px 0 #00fff9;
+    clip-path: inset(50% 0 30% 0);
+    animation: glitch-anim 4s infinite linear alternate-reverse;
+}
+@keyframes glitch-anim {
+    0% { clip-path: inset(40% 0 61% 0); }
+    20% { clip-path: inset(92% 0 1% 0); }
+    40% { clip-path: inset(43% 0 1% 0); }
+    60% { clip-path: inset(25% 0 58% 0); }
+    80% { clip-path: inset(54% 0 7% 0); }
+    100% { clip-path: inset(58% 0 43% 0); }
+}

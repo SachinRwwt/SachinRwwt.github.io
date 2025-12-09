@@ -37,44 +37,43 @@ function drawMatrix() {
 }
 drawMatrix();
 
-/* --- 2. Terminal Typing Effect (Screenshot 1 Match) --- */
+/* --- 2. Terminal Typing Effect --- */
 const terminalContent = document.getElementById('terminal-content');
-// The exact lines from your screenshot
-const lines = [
-    { text: "> Initializing system...", color: "text-primary" },
-    { text: "> Loading modules...", color: "text-primary" },
-    { text: "> Access granted.", color: "text-primary" },
-    { text: "> Welcome to Sachin Singh's Portfolio.", color: "text-white" }
-];
+if (terminalContent) {
+    const lines = [
+        { text: "> Initializing system...", color: "text-primary" },
+        { text: "> Loading modules...", color: "text-primary" },
+        { text: "> Access granted.", color: "text-primary" },
+        { text: "> Welcome to Sachin Singh's Portfolio.", color: "text-white" }
+    ];
 
-let lineIdx = 0;
-let charIdx = 0;
+    let lineIdx = 0;
+    let charIdx = 0;
 
-function typeLine() {
-    if (lineIdx < lines.length) {
-        // Create new line if starting
-        if (charIdx === 0) {
-            const div = document.createElement('div');
-            div.className = `mb-1 ${lines[lineIdx].color}`;
-            div.id = `term-line-${lineIdx}`;
-            terminalContent.appendChild(div);
-        }
+    function typeLine() {
+        if (lineIdx < lines.length) {
+            if (charIdx === 0) {
+                const div = document.createElement('div');
+                div.className = `mb-1 ${lines[lineIdx].color}`;
+                div.id = `term-line-${lineIdx}`;
+                terminalContent.appendChild(div);
+            }
 
-        const currentDiv = document.getElementById(`term-line-${lineIdx}`);
-        currentDiv.textContent += lines[lineIdx].text.charAt(charIdx);
-        charIdx++;
+            const currentDiv = document.getElementById(`term-line-${lineIdx}`);
+            currentDiv.textContent += lines[lineIdx].text.charAt(charIdx);
+            charIdx++;
 
-        if (charIdx < lines[lineIdx].text.length) {
-            setTimeout(typeLine, 30 + Math.random() * 20); // Random typing speed
-        } else {
-            lineIdx++;
-            charIdx = 0;
-            setTimeout(typeLine, 400); // Pause between lines
+            if (charIdx < lines[lineIdx].text.length) {
+                setTimeout(typeLine, 30 + Math.random() * 20);
+            } else {
+                lineIdx++;
+                charIdx = 0;
+                setTimeout(typeLine, 400);
+            }
         }
     }
+    setTimeout(typeLine, 500);
 }
-// Start typing after 500ms
-setTimeout(typeLine, 500);
 
 /* --- 3. Skill Bar Animation --- */
 const observerOptions = { threshold: 0.2 };
@@ -93,3 +92,28 @@ const skillObserver = new IntersectionObserver((entries) => {
 document.querySelectorAll('.skill-progress').forEach(bar => {
     skillObserver.observe(bar);
 });
+
+/* --- 4. Mobile Menu Toggle --- */
+const menuBtn = document.getElementById('mobile-menu-btn');
+const mobileMenu = document.getElementById('mobile-menu');
+const mobileLinks = document.querySelectorAll('.mobile-link');
+
+if (menuBtn && mobileMenu) {
+    menuBtn.addEventListener('click', () => {
+        const isHidden = mobileMenu.classList.contains('opacity-0');
+        if (isHidden) {
+            // Open Menu
+            mobileMenu.classList.remove('opacity-0', 'pointer-events-none');
+        } else {
+            // Close Menu
+            mobileMenu.classList.add('opacity-0', 'pointer-events-none');
+        }
+    });
+
+    // Close menu when a link is clicked
+    mobileLinks.forEach(link => {
+        link.addEventListener('click', () => {
+            mobileMenu.classList.add('opacity-0', 'pointer-events-none');
+        });
+    });
+}

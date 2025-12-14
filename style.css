@@ -1,163 +1,131 @@
-/* Base */
+/* --- Base Styles --- */
 body {
     background-color: #050505;
+    color: #e5e5e5;
+    overflow-x: hidden;
+    width: 100%;
 }
 
-/* Scrollbar */
-::-webkit-scrollbar {
+/* --- Custom Cursor (Desktop Only) --- */
+.cursor-dot {
     width: 6px;
-}
-::-webkit-scrollbar-track {
-    background: #050505;
-}
-::-webkit-scrollbar-thumb {
-    background: #1a1a1a;
-    border-radius: 3px;
-}
-::-webkit-scrollbar-thumb:hover {
-    background: #00ff41;
-}
-
-/* Nav Links */
-.nav-link {
-    color: #a1a1aa;
-    transition: color 0.3s;
-    position: relative;
-}
-.nav-link:hover {
-    color: #00ff41;
-    text-shadow: 0 0 10px rgba(0, 255, 65, 0.5);
-}
-.nav-link::before {
-    content: '[';
-    margin-right: 2px;
-    color: #00ff41;
-    opacity: 0;
-    transition: opacity 0.3s;
-}
-.nav-link::after {
-    content: ']';
-    margin-left: 2px;
-    color: #00ff41;
-    opacity: 0;
-    transition: opacity 0.3s;
-}
-.nav-link:hover::before,
-.nav-link:hover::after {
-    opacity: 1;
-}
-
-/* Mobile Link Animation */
-.mobile-link {
-    transition: all 0.3s;
-}
-.mobile-link:active {
-    color: #00ff41;
-    text-shadow: 0 0 15px rgba(0, 255, 65, 0.8);
-    transform: scale(0.95);
-}
-
-/* Tools Badges (Skill Section) */
-.tool-badge {
-    border: 1px solid #1a1a1a;
-    background: rgba(255,255,255,0.02);
-    color: #888;
-    padding: 6px 12px;
-    border-radius: 2px;
-    font-size: 10px;
-    font-family: 'JetBrains Mono', monospace;
-    font-weight: bold;
-    cursor: default;
-    transition: all 0.3s;
-}
-.tool-badge:hover {
-    border-color: #00ff41;
-    color: #00ff41;
-    background: rgba(0, 255, 65, 0.05);
-    box-shadow: 0 0 10px rgba(0, 255, 65, 0.1);
-    transform: translateY(-2px);
-}
-
-/* Social Buttons (Contact) */
-.social-btn {
-    width: 50px;
-    height: 50px;
+    height: 6px;
+    background-color: #00ff41;
     border-radius: 50%;
-    border: 1px solid #1a1a1a;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    color: #00ff41;
-    transition: all 0.3s;
-}
-.social-btn:hover, .social-btn:active {
-    border-color: #00ff41;
-    background: #00ff41;
-    color: black;
-    box-shadow: 0 0 15px rgba(0, 255, 65, 0.5);
-    transform: translateY(-3px);
-}
-
-/* Matrix Canvas */
-#matrix-canvas {
     position: fixed;
     top: 0; left: 0;
-    width: 100%; height: 100%;
-    z-index: 0;
-    opacity: 0.08; /* Slightly lowered for better mobile text readability */
-    pointer-events: none;
-}
-
-/* CRT Scanlines */
-.scanlines {
-    background: linear-gradient(
-        to bottom,
-        rgba(255,255,255,0),
-        rgba(255,255,255,0) 50%,
-        rgba(0,0,0,0.1) 50%,
-        rgba(0,0,0,0.1)
-    );
-    background-size: 100% 4px;
-    position: fixed;
-    inset: 0;
-    pointer-events: none;
-    z-index: 9998;
-    opacity: 0.3;
-}
-
-.vignette {
-    position: fixed;
-    inset: 0;
-    background: radial-gradient(circle, transparent 60%, rgba(0,0,0,0.8) 100%);
+    transform: translate(-50%, -50%);
     pointer-events: none;
     z-index: 9999;
 }
 
-/* Glitch Text */
-.glitch-wrapper { position: relative; }
-.glitch-text { position: relative; }
-.glitch-text::before, .glitch-text::after {
-    content: attr(data-text);
+.cursor-outline {
+    width: 40px;
+    height: 40px;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    border-radius: 50%;
+    position: fixed;
+    top: 0; left: 0;
+    transform: translate(-50%, -50%);
+    pointer-events: none;
+    z-index: 9998;
+    transition: width 0.2s, height 0.2s, border-color 0.2s;
+}
+
+body.hovering .cursor-outline {
+    width: 60px;
+    height: 60px;
+    border-color: #00ff41;
+    background-color: rgba(0, 255, 65, 0.03);
+}
+
+/* Hide custom cursor on mobile */
+@media (max-width: 768px) {
+    body { cursor: auto; }
+    .cursor-dot, .cursor-outline { display: none; }
+}
+
+/* --- Scrollbar --- */
+::-webkit-scrollbar { width: 8px; }
+::-webkit-scrollbar-track { background: #0a0a0a; }
+::-webkit-scrollbar-thumb { background: #333; border-radius: 4px; }
+::-webkit-scrollbar-thumb:hover { background: #555; }
+
+/* --- Navigation --- */
+.nav-link {
+    color: #888;
+    transition: all 0.3s;
+    position: relative;
+    padding-bottom: 2px;
+}
+.nav-link:hover { color: #fff; }
+.nav-link::after {
+    content: '';
     position: absolute;
-    top: 0; left: 0; width: 100%; height: 100%;
+    bottom: 0; left: 0;
+    width: 0%; height: 1px;
+    background: #00ff41;
+    transition: width 0.3s ease;
 }
-.glitch-text::before {
-    left: 2px;
-    text-shadow: -1px 0 #ff00c1;
-    clip-path: inset(44% 0 61% 0);
-    animation: glitch-anim 4s infinite linear alternate-reverse;
+.nav-link:hover::after { width: 100%; }
+
+/* Mobile Menu Link Animation */
+.mobile-link {
+    transition: all 0.2s ease-out;
 }
-.glitch-text::after {
-    left: -2px;
-    text-shadow: -1px 0 #00fff9;
-    clip-path: inset(50% 0 30% 0);
-    animation: glitch-anim 4s infinite linear alternate-reverse;
+.mobile-link:active {
+    color: #00ff41;
+    transform: scale(0.95);
 }
-@keyframes glitch-anim {
-    0% { clip-path: inset(40% 0 61% 0); }
-    20% { clip-path: inset(92% 0 1% 0); }
-    40% { clip-path: inset(43% 0 1% 0); }
-    60% { clip-path: inset(25% 0 58% 0); }
-    80% { clip-path: inset(54% 0 7% 0); }
-    100% { clip-path: inset(58% 0 43% 0); }
+
+/* --- Skill Tags --- */
+.skill-tag {
+    font-size: 11px;
+    font-weight: 600;
+    color: #ccc;
+    background: rgba(255, 255, 255, 0.03);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    padding: 8px 16px;
+    border-radius: 2px;
+    cursor: default;
+    transition: all 0.3s;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    white-space: nowrap;
+}
+.skill-tag:hover {
+    border-color: #00ff41;
+    color: #00ff41;
+    background: rgba(0, 255, 65, 0.05);
+    transform: translateY(-2px);
+}
+
+/* --- Matrix Canvas --- */
+#matrix-canvas {
+    position: fixed;
+    top: 0; left: 0;
+    width: 100%; height: 100%;
+    z-index: -1; 
+    opacity: 0.25; 
+    pointer-events: none;
+}
+
+/* --- Animations --- */
+@keyframes slideIn {
+    to { transform: translateX(0); }
+}
+
+/* Blinking Cursor for Terminal */
+.cursor-blink {
+    display: inline-block;
+    width: 8px;
+    height: 15px;
+    background-color: #00ff41;
+    animation: blink 1s infinite;
+    vertical-align: middle;
+    margin-left: 4px;
+}
+@keyframes blink {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0; }
 }

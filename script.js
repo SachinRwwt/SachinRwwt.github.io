@@ -1,7 +1,32 @@
-// Initialize Lucide Icons
+// Init Icons
 lucide.createIcons();
 
-/* --- 1. Matrix Rain Background --- */
+/* --- 1. Custom Cursor (Desktop Only) --- */
+const cursorDot = document.querySelector('[data-cursor-dot]');
+const cursorOutline = document.querySelector('[data-cursor-outline]');
+const hoverTriggers = document.querySelectorAll('a, button, .hover-trigger, .tilt-card');
+
+if (window.innerWidth > 768) {
+    window.addEventListener('mousemove', (e) => {
+        const posX = e.clientX;
+        const posY = e.clientY;
+
+        cursorDot.style.left = `${posX}px`;
+        cursorDot.style.top = `${posY}px`;
+
+        cursorOutline.animate({
+            left: `${posX}px`,
+            top: `${posY}px`
+        }, { duration: 400, fill: "forwards" });
+    });
+
+    hoverTriggers.forEach(trigger => {
+        trigger.addEventListener('mouseenter', () => document.body.classList.add('hovering'));
+        trigger.addEventListener('mouseleave', () => document.body.classList.remove('hovering'));
+    });
+}
+
+/* --- 2. Matrix Rain (Slower & Brighter) --- */
 const canvas = document.getElementById('matrix-canvas');
 const ctx = canvas.getContext('2d');
 
@@ -15,98 +40,111 @@ window.addEventListener('resize', () => {
     drops = Array(columns).fill(1);
 });
 
-const characters = "010101XYZABCDEFGHIJKLMNOPQRSTUVW";
+// Using binary + hex characters
+const characters = "010101XYZ0011"; 
 let columns = Math.floor(width / 20);
 let drops = Array(columns).fill(1);
 
-function drawMatrix() {
-    ctx.fillStyle = 'rgba(5, 5, 5, 0.05)';
+// Speed Control Variables
+let lastDrawTime = 0;
+const fps = 20; // Lower number = Slower rain
+const nextFrameTime = 1000 / fps;
+
+function drawMatrix(currentTime) {
+    requestAnimationFrame(drawMatrix);
+
+    // Limit speed
+    if (currentTime - lastDrawTime < nextFrameTime) return;
+    lastDrawTime = currentTime;
+
+    // Fade out previous frame (creates the trail)
+    ctx.fillStyle = 'rgba(5, 5, 5, 0.1)'; 
     ctx.fillRect(0, 0, width, height);
-    ctx.fillStyle = '#00ff41'; // Hacker Green
+    
+    // Set text color (Neon Green)
     ctx.font = '14px JetBrains Mono';
 
     for (let i = 0; i < drops.length; i++) {
         const text = characters.charAt(Math.floor(Math.random() * characters.length));
+        
+        // Randomly make some characters white for "glint" effect
+        if (Math.random() > 0.98) {
+            ctx.fillStyle = '#FFFFFF'; 
+        } else {
+            ctx.fillStyle = '#00FF41'; 
+        }
+
         ctx.fillText(text, i * 20, drops[i] * 20);
+
+        // Reset drop to top randomly
         if (drops[i] * 20 > height && Math.random() > 0.975) {
             drops[i] = 0;
         }
         drops[i]++;
     }
-    requestAnimationFrame(drawMatrix);
 }
-drawMatrix();
+// Start the animation loop
+requestAnimationFrame(drawMatrix);
 
-/* --- 2. Terminal Typing Effect --- */
-const terminalContent = document.getElementById('terminal-content');
-if (terminalContent) {
-    const lines = [
-        { text: "> Initializing system...", color: "text-primary" },
-        { text: "> Loading modules...", color: "text-primary" },
-        { text: "> Access granted.", color: "text-primary" },
-        { text: "> Welcome to Sachin Singh's Portfolio.", color: "text-white" }
-    ];
 
-    let lineIdx = 0;
-    let charIdx = 0;
+/* --- 3. Terminal Typing --- */
+const terminalLines = [
+    { text: "Initializing security protocols...", time: 500 },
+    { text: "Connecting to secure server...", time: 1000 },
+    { text: "Access granted.", time: 1500, color: "#00ff41" },
+    { text: "Loading portfolio modules...", time: 2000 },
+    { text: "Welcome, User.", time: 2800, color: "#fff" }
+];
 
-    function typeLine() {
-        if (lineIdx < lines.length) {
-            if (charIdx === 0) {
-                const div = document.createElement('div');
-                div.className = `mb-1 ${lines[lineIdx].color}`;
-                div.id = `term-line-${lineIdx}`;
-                terminalContent.appendChild(div);
-            }
+const termContent = document.getElementById('terminal-content');
 
-            const currentDiv = document.getElementById(`term-line-${lineIdx}`);
-            currentDiv.textContent += lines[lineIdx].text.charAt(charIdx);
-            charIdx++;
+let currentLineIndex = 0;
 
-            if (charIdx < lines[lineIdx].text.length) {
-                setTimeout(typeLine, 30 + Math.random() * 20);
-            } else {
-                lineIdx++;
-                charIdx = 0;
-                setTimeout(typeLine, 400);
-            }
-        }
+function addLine() {
+    if (termContent && currentLineIndex < terminalLines.length) {
+        const lineData = terminalLines[currentLineIndex];
+        const line = document.createElement('div');
+        line.style.opacity = '0';
+        line.style.color = lineData.color || '#888';
+        line.innerHTML = `<span class="text-primary mr-2">➜</span> ${lineData.text}`;
+        
+        termContent.appendChild(line);
+
+        setTimeout(() => {
+            line.style.transition = 'opacity 0.5s';
+            line.style.opacity = '1';
+        }, 100);
+
+        currentLineIndex++;
+        setTimeout(addLine, 600); 
+    } else if (termContent) {
+        const cursor = document.createElement('div');
+        cursor.innerHTML = `<span class="text-primary mr-2">➜</span> <span class="cursor-blink"></span>`;
+        termContent.appendChild(cursor);
     }
-    setTimeout(typeLine, 500);
 }
 
-/* --- 3. Skill Bar Animation --- */
-const observerOptions = { threshold: 0.2 };
-const skillObserver = new IntersectionObserver((entries) => {
-    entries.forEach(entry => {
-        if (entry.isIntersecting) {
-            const bar = entry.target;
-            const width = bar.getAttribute('data-width');
-            bar.style.width = width;
-            bar.style.transition = "width 1.5s cubic-bezier(0.22, 1, 0.36, 1)";
-            skillObserver.unobserve(bar);
-        }
-    });
-}, observerOptions);
+setTimeout(addLine, 800);
 
-document.querySelectorAll('.skill-progress').forEach(bar => {
-    skillObserver.observe(bar);
-});
-
-/* --- 4. Mobile Menu Toggle --- */
+/* --- 4. Mobile Menu Logic --- */
 const menuBtn = document.getElementById('mobile-menu-btn');
 const mobileMenu = document.getElementById('mobile-menu');
 const mobileLinks = document.querySelectorAll('.mobile-link');
 
 if (menuBtn && mobileMenu) {
+    // Toggle Menu
     menuBtn.addEventListener('click', () => {
         const isHidden = mobileMenu.classList.contains('opacity-0');
         if (isHidden) {
-            // Open Menu
             mobileMenu.classList.remove('opacity-0', 'pointer-events-none');
+            // Change icon to X
+            menuBtn.innerHTML = '<i data-lucide="x" class="w-7 h-7"></i>';
+            lucide.createIcons();
         } else {
-            // Close Menu
             mobileMenu.classList.add('opacity-0', 'pointer-events-none');
+            // Change icon back to Menu
+            menuBtn.innerHTML = '<i data-lucide="menu" class="w-7 h-7"></i>';
+            lucide.createIcons();
         }
     });
 
@@ -114,6 +152,8 @@ if (menuBtn && mobileMenu) {
     mobileLinks.forEach(link => {
         link.addEventListener('click', () => {
             mobileMenu.classList.add('opacity-0', 'pointer-events-none');
+            menuBtn.innerHTML = '<i data-lucide="menu" class="w-7 h-7"></i>';
+            lucide.createIcons();
         });
     });
 }

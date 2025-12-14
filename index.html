@@ -1,9 +1,9 @@
 <!DOCTYPE html>
-<html lang="en" class="scroll-smooth">
+<html lang="en" class="scroll-smooth overflow-x-hidden">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>0xS3CUR3 | Sachin Singh</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>sudo.sachin</title>
     
     <script src="https://cdn.tailwindcss.com"></script>
     <script>
@@ -13,9 +13,9 @@
                     colors: {
                         primary: '#00ff41', /* Hacker Green */
                         background: '#050505',
-                        card: '#0c0c0c',
-                        border: '#1a1a1a',
-                        muted: '#a1a1aa'
+                        card: '#0a0a0a',
+                        border: '#1f1f1f',
+                        muted: '#888888'
                     },
                     fontFamily: {
                         mono: ['"JetBrains Mono"', 'monospace'],
@@ -23,71 +23,73 @@
                     },
                     animation: {
                         'spin-slow': 'spin 15s linear infinite',
-                        'pulse-glow': 'pulse-glow 2s infinite',
-                    },
-                    keyframes: {
-                        'pulse-glow': {
-                            '0%, 100%': { boxShadow: '0 0 5px #00ff41' },
-                            '50%': { boxShadow: '0 0 20px #00ff41' },
-                        }
                     }
                 }
             }
         }
     </script>
 
-    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;700&family=Orbitron:wght@400;700;900&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;700&family=Orbitron:wght@500;700&display=swap" rel="stylesheet">
+    
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+    
     <link rel="stylesheet" href="style.css">
+
     <script src="https://unpkg.com/lucide@latest"></script>
 </head>
-<body class="bg-background text-gray-300 font-mono antialiased overflow-x-hidden selection:bg-primary selection:text-black">
+<body class="bg-background text-gray-300 font-mono antialiased selection:bg-primary selection:text-black w-full overflow-x-hidden">
+
+    <div class="cursor-dot" data-cursor-dot></div>
+    <div class="cursor-outline" data-cursor-outline></div>
 
     <canvas id="matrix-canvas"></canvas>
-    <div class="scanlines"></div>
-    <div class="vignette"></div>
+    <div class="fixed inset-0 pointer-events-none z-0 bg-[radial-gradient(circle_at_center,transparent_0%,#000000_100%)] opacity-80"></div>
 
-    <nav class="fixed top-0 left-0 w-full z-50 bg-black/90 backdrop-blur-md border-b border-primary/20 h-16 flex items-center justify-between px-4 md:px-12">
-        <div class="flex items-center gap-2 group cursor-pointer z-50">
-            <i data-lucide="terminal" class="h-6 w-6 text-primary"></i>
-            <span class="font-display font-bold text-lg md:text-xl tracking-widest text-white group-hover:text-primary transition-colors">SACHIN SINGH</span>
+    <nav class="fixed top-0 left-0 w-full z-50 bg-black/80 backdrop-blur-xl border-b border-white/5 h-16 md:h-20 flex items-center justify-between px-4 md:px-12 transition-all duration-300">
+        <div class="flex items-center gap-3 group cursor-pointer hover-trigger">
+            <div class="p-1.5 bg-white/5 rounded-lg border border-white/10 group-hover:border-primary/50 transition-colors">
+                <i data-lucide="terminal" class="h-5 w-5 text-primary"></i>
+            </div>
+            <span class="font-display font-bold text-base md:text-lg tracking-widest text-white hidden md:block">SACHIN SINGH</span>
+         
         </div>
-
-        <div class="hidden md:flex items-center gap-8 text-xs font-bold tracking-widest">
-            <a href="#about" class="nav-link">[ABOUT]</a>
-            <a href="#skills" class="nav-link">[SKILLS]</a>
-            <a href="#projects" class="nav-link">[PROJECTS]</a>
-            <a href="#contact" class="nav-link">[CONTACT]</a>
+        
+        <div class="hidden md:flex items-center gap-10 text-xs font-bold tracking-widest text-muted">
+            <a href="#about" class="nav-link hover-trigger">ABOUT</a>
+            <a href="#skills" class="nav-link hover-trigger">SKILLS</a>
+            <a href="#projects" class="nav-link hover-trigger">PROJECTS</a>
+            <a href="#contact" class="nav-link hover-trigger">CONTACT</a>
         </div>
-
-        <div class="hidden md:flex items-center">
-            <a href="mailto:sachinrwwt@gmail.com" class="relative group overflow-hidden px-6 py-2 border border-primary text-primary text-sm font-bold uppercase tracking-wider rounded-sm hover:bg-primary hover:text-black transition-all duration-300 shadow-[0_0_10px_rgba(0,255,65,0.2)] hover:shadow-[0_0_20px_rgba(0,255,65,0.6)]">
+        
+        <div class="flex items-center gap-4">
+            <a href="mailto:sachinrwwt@gmail.com" class="hidden md:flex hover-trigger relative px-6 py-2.5 bg-white/5 border border-white/10 text-xs font-bold text-white hover:bg-primary hover:text-black hover:border-primary transition-all duration-300 uppercase tracking-wider rounded-sm overflow-hidden group">
                 <span class="relative z-10 flex items-center gap-2">
-                    <i data-lucide="mail" class="w-4 h-4"></i> Hire Me
+                    Hire_Me <i data-lucide="arrow-up-right" class="w-3 h-3"></i>
                 </span>
             </a>
+            
+            <button id="mobile-menu-btn" class="md:hidden z-50 text-primary p-2 active:bg-white/10 rounded">
+                <i data-lucide="menu" class="w-7 h-7"></i>
+            </button>
         </div>
-
-        <button id="mobile-menu-btn" class="md:hidden z-50 text-primary p-2 hover:bg-primary/10 rounded">
-            <i data-lucide="menu" class="w-6 h-6"></i>
-        </button>
     </nav>
 
-    <div id="mobile-menu" class="fixed inset-0 bg-black/95 z-40 flex flex-col items-center justify-center gap-8 opacity-0 pointer-events-none transition-all duration-300 md:hidden">
-        <a href="#about" class="mobile-link text-xl font-display font-bold text-white tracking-widest hover:text-primary">[ABOUT]</a>
-        <a href="#skills" class="mobile-link text-xl font-display font-bold text-white tracking-widest hover:text-primary">[SKILLS]</a>
-        <a href="#projects" class="mobile-link text-xl font-display font-bold text-white tracking-widest hover:text-primary">[PROJECTS]</a>
-        <a href="#contact" class="mobile-link text-xl font-display font-bold text-white tracking-widest hover:text-primary">[CONTACT]</a>
+    <div id="mobile-menu" class="fixed inset-0 bg-black/95 backdrop-blur-2xl z-40 flex flex-col items-center justify-center gap-8 opacity-0 pointer-events-none transition-all duration-300 md:hidden">
+        <a href="#about" class="mobile-link text-2xl font-display font-bold text-white tracking-widest hover:text-primary transition-colors">[ABOUT]</a>
+        <a href="#skills" class="mobile-link text-2xl font-display font-bold text-white tracking-widest hover:text-primary transition-colors">[SKILLS]</a>
+        <a href="#projects" class="mobile-link text-2xl font-display font-bold text-white tracking-widest hover:text-primary transition-colors">[PROJECTS]</a>
+        <a href="#contact" class="mobile-link text-2xl font-display font-bold text-white tracking-widest hover:text-primary transition-colors">[CONTACT]</a>
         
-        <a href="mailto:sachinrwwt@gmail.com" class="mt-4 px-8 py-3 bg-primary text-black font-bold uppercase tracking-widest rounded-sm shadow-[0_0_20px_rgba(0,255,65,0.4)]">
-            Hire Me
+        <a href="mailto:sachinrwwt@gmail.com" class="mt-8 px-10 py-4 bg-primary text-black font-bold uppercase tracking-widest rounded-sm shadow-[0_0_20px_rgba(0,255,65,0.4)]">
+            Hire Me Now
         </a>
     </div>
 
-    <header class="relative min-h-screen flex items-center justify-center pt-20 pb-12 px-4 md:px-6">
-        <div class="container max-w-7xl mx-auto z-10 grid lg:grid-cols-2 gap-12 items-center">
+    <header class="relative min-h-[100dvh] flex items-center justify-center pt-20 px-4 md:px-6 w-full">
+        <div class="container max-w-7xl mx-auto z-10 grid lg:grid-cols-2 gap-10 items-center">
             
-            <div class="space-y-6 text-center lg:text-left">
-                <div class="inline-flex items-center gap-2 px-3 py-1 border border-primary/30 rounded-full bg-primary/5">
+            <div class="space-y-6 text-center lg:text-left" data-aos="fade-up" data-aos-duration="1000">
+                <div class="inline-flex items-center gap-3 px-4 py-1.5 border border-primary/20 rounded-full bg-primary/5 backdrop-blur-md">
                     <span class="relative flex h-2 w-2">
                       <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-primary opacity-75"></span>
                       <span class="relative inline-flex rounded-full h-2 w-2 bg-primary"></span>
@@ -95,60 +97,50 @@
                     <span class="text-[10px] text-primary tracking-widest font-bold uppercase">System Online</span>
                 </div>
                 
-                <h1 class="text-4xl sm:text-5xl md:text-7xl font-bold text-white leading-tight font-display uppercase glitch-wrapper">
-                    Sachin <span class="text-transparent bg-clip-text bg-gradient-to-r from-primary to-green-800 glitch-text" data-text="Singh">Singh</span>
+                <h1 class="text-4xl sm:text-5xl md:text-7xl font-bold text-white leading-tight font-display tracking-tight break-words">
+                    Sachin <span class="text-primary">Singh</span>
                 </h1>
                 
-                <p class="text-base md:text-lg text-gray-400 max-w-xl mx-auto lg:mx-0 border-l-2 border-primary pl-4 leading-relaxed font-mono text-left">
-                    Junior Pentester & Cybersecurity Specialist. Exploiting vulnerabilities in <span class="text-white">Web Apps</span>, securing <span class="text-white">Networks</span>, and developing secure <span class="text-white">Android</span> solutions.
+                <p class="text-sm md:text-lg text-gray-400 max-w-xl leading-relaxed mx-auto lg:mx-0 px-2">
+                    Junior Penetration Tester & Cybersecurity Specialist. Exploiting vulnerabilities in <span class="text-white">Web Apps</span>, securing <span class="text-white">Networks</span>, and developing secure solutions.
                 </p>
 
-                <div class="pt-4 flex justify-center lg:justify-start">
-                    <div class="inline-flex items-center gap-4 bg-card border border-border p-3 pr-6 hover:border-primary transition-all group cursor-pointer shadow-[0_0_15px_rgba(0,0,0,0.5)]" onclick="window.open('https://tryhackme.com/p/SUD0', '_blank')">
-                        <div class="h-10 w-10 flex items-center justify-center bg-primary text-black font-bold text-xl rounded-sm group-hover:animate-pulse">
-                            H
-                        </div>
-                        <div>
-                            <div class="text-[10px] text-primary uppercase tracking-wider">TryHackMe Rank</div>
-                            <div class="text-lg font-display font-bold text-white group-hover:text-primary transition-colors">HACKER</div>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="flex flex-wrap gap-4 pt-6 justify-center lg:justify-start">
-                    <a href="#projects" class="px-8 py-3 bg-primary text-black font-bold text-sm tracking-wide hover:bg-white transition-all flex items-center gap-2 uppercase shadow-[0_0_20px_rgba(0,255,65,0.4)]">
-                        View_Projects <i data-lucide="chevron-right" class="h-4 w-4"></i>
+                <div class="flex flex-col sm:flex-row flex-wrap gap-4 pt-4 justify-center lg:justify-start w-full px-4 sm:px-0">
+                    <a href="#projects" class="w-full sm:w-auto px-8 py-4 bg-primary text-black font-bold text-sm tracking-widest hover:bg-white transition-all flex items-center justify-center gap-2 uppercase rounded-sm shadow-[0_0_15px_rgba(0,255,65,0.3)]">
+                        View_Projects 
+                    </a>
+                    <a href="https://tryhackme.com/p/SUD0" target="_blank" class="w-full sm:w-auto px-8 py-4 border border-white/20 text-white font-bold text-sm tracking-widest hover:border-primary hover:text-primary transition-all flex items-center justify-center gap-2 uppercase rounded-sm backdrop-blur-sm bg-black/20">
+                        <i data-lucide="terminal" class="w-4 h-4"></i> THM: HACKER
                     </a>
                 </div>
             </div>
 
-            <div class="relative hidden lg:block">
-                <div class="w-full max-w-lg mx-auto bg-[#0a0a0a] border border-gray-800 shadow-[0_0_50px_rgba(0,255,65,0.1)]">
-                    <div class="flex items-center justify-between px-4 py-2 bg-[#111] border-b border-gray-800">
-                        <div class="text-xs text-gray-500 font-mono flex items-center gap-2">
-                            <span class="text-primary">>_</span> user@0xS3CUR3:~
+            <div class="relative hidden lg:block" data-aos="fade-left" data-aos-duration="1200" data-aos-delay="200">
+                <div class="tilt-card w-full max-w-lg mx-auto bg-black/40 backdrop-blur-xl border border-white/10 rounded-xl overflow-hidden shadow-2xl hover:border-primary/30 transition-colors">
+                    <div class="flex items-center justify-between px-5 py-3 bg-white/5 border-b border-white/5">
+                        <div class="text-xs text-muted font-mono flex items-center gap-2">
+                            <i data-lucide="command" class="w-3 h-3"></i> administrator@sudo.sachin
                         </div>
-                        <div class="flex items-center gap-2 text-gray-600">
-                            <i data-lucide="minus" class="h-3 w-3"></i>
-                            <i data-lucide="square" class="h-3 w-3"></i>
-                            <i data-lucide="x" class="h-3 w-3"></i>
+                        <div class="flex items-center gap-2">
+                            <div class="h-2.5 w-2.5 rounded-full bg-red-500/50"></div>
+                            <div class="h-2.5 w-2.5 rounded-full bg-yellow-500/50"></div>
+                            <div class="h-2.5 w-2.5 rounded-full bg-green-500/50"></div>
                         </div>
                     </div>
-                    <div class="p-6 font-mono text-sm min-h-[300px]">
-                        <div id="terminal-content"></div>
-                        <div class="mt-8 border-t border-gray-800 pt-4 grid grid-cols-2 gap-4 text-xs font-bold tracking-widest">
-                            <div>
-                                <span class="text-gray-500">TARGET:</span><br>
-                                <span class="text-red-500">CORP_INFRASTRUCTURE</span>
-                            </div>
-                            <div>
-                                <span class="text-gray-500">STATUS:</span><br>
-                                <span class="text-primary">VULNERABLE</span>
-                            </div>
-                            <div>
-                                <span class="text-gray-500">EXPLOIT:</span><br>
-                                <span class="text-blue-500">READY</span>
-                            </div>
+                    <div class="p-8 font-mono text-sm h-[320px] flex flex-col relative">
+                        <div id="terminal-content" class="space-y-2 text-gray-300"></div>
+                        
+                        <div class="mt-auto grid grid-cols-2 gap-4 pt-6 border-t border-white/5">
+                             <div>
+                                <div class="text-[10px] text-muted uppercase tracking-widest mb-1">Target Scope</div>
+                                <div class="text-white font-bold flex items-center gap-2">
+                                    <span class="w-1.5 h-1.5 bg-red-500 rounded-full animate-pulse"></span> CORP_INFRA
+                                </div>
+                             </div>
+                             <div>
+                                <div class="text-[10px] text-muted uppercase tracking-widest mb-1">Vulnerability</div>
+                                <div class="text-primary font-bold">CRITICAL_FOUND</div>
+                             </div>
                         </div>
                     </div>
                 </div>
@@ -156,66 +148,46 @@
         </div>
     </header>
 
-    <section id="about" class="py-16 md:py-24 bg-black relative border-t border-gray-900">
+    <section id="about" class="py-16 md:py-24 relative border-t border-white/5 bg-black/40 backdrop-blur-sm">
         <div class="container max-w-6xl mx-auto px-4 md:px-6">
-            <div class="grid md:grid-cols-3 gap-12 items-center">
-                <div class="md:col-span-1 flex flex-col items-center">
-                    <div class="relative w-48 h-48 md:w-64 md:h-64 mb-6 group">
-                        <div class="absolute inset-0 rounded-full border border-dashed border-gray-700 animate-spin-slow group-hover:border-primary transition-colors"></div>
-                        <div class="absolute inset-0 rounded-full shadow-[0_0_30px_rgba(0,255,65,0.1)] group-hover:shadow-[0_0_50px_rgba(0,255,65,0.3)] transition-all"></div>
-                        
-                        <div class="absolute inset-2 rounded-full overflow-hidden border border-gray-800 bg-black z-10">
-                            <img src="portfolio/cyberpunk_hacker_hooded_avatar_silhouette-B4rpQ9CS.png" 
+            <div class="grid md:grid-cols-12 gap-8 items-center">
+                
+                <div class="md:col-span-4 flex justify-center md:justify-start" data-aos="fade-right">
+                    <div class="relative w-40 h-40 sm:w-56 sm:h-56 md:w-72 md:h-72 group mx-auto">
+                        <div class="absolute inset-0 rounded-full border border-dashed border-white/20 animate-spin-slow group-hover:border-primary/50 transition-colors"></div>
+                        <div class="absolute inset-0 rounded-full shadow-[0_0_50px_rgba(0,255,65,0.1)] group-hover:shadow-[0_0_80px_rgba(0,255,65,0.2)] transition-all"></div>
+                        <div class="absolute inset-3 rounded-full overflow-hidden border-2 border-white/10 bg-black z-10 group-hover:border-primary transition-colors">
+                            <img src="portfolio/my profile.webp" 
                                  alt="Profile" 
-                                 class="w-full h-full object-cover grayscale hover:grayscale-0 transition-all duration-500">
-                        </div>
-                    </div>
-                    
-                    <div class="text-center font-mono text-xs space-y-2">
-                        <div>
-                            <span class="text-primary">STATUS:</span> <span class="text-white">OPEN_TO_WORK</span>
-                        </div>
-                        <div>
-                            <span class="text-gray-500">LOC:</span> <span class="text-white">Dwarka, Delhi</span>
+                                 class="w-full h-full object-cover grayscale opacity-90 group-hover:opacity-100 group-hover:grayscale-0 transition-all duration-500 scale-100 group-hover:scale-110">
                         </div>
                     </div>
                 </div>
 
-                <div class="md:col-span-2">
-                    <h2 class="text-3xl md:text-4xl font-display font-bold text-white mb-6 uppercase">
-                        <span class="text-primary">01.</span> WHO_AM_I?
+                <div class="md:col-span-8 text-center md:text-left" data-aos="fade-up">
+                    <h2 class="text-2xl md:text-3xl font-display font-bold text-white mb-6 flex items-center justify-center md:justify-start gap-4">
+                        <span class="text-primary">01.</span> THE_OPERATOR
                     </h2>
                     
-                    <div class="text-gray-400 leading-relaxed text-sm mb-8 space-y-4">
+                    <div class="space-y-4 text-gray-400 leading-relaxed font-light text-sm md:text-base">
                         <p>
-                            I am a Junior Pentester with a strong foundation in vulnerability assessments and penetration testing. During my internship at <span class="text-white">ASD Cyber Security</span>, I successfully executed VAPT on multiple clients, identifying critical security issues and enhancing their security posture.
+                            I am a <strong class="text-white">Junior Pentester</strong> with a strong foundation in vulnerability assessments. During my internship at <strong class="text-white">ASD Cyber Security</strong>, I executed VAPT on multiple clients, identifying critical security issues.
                         </p>
                         <p>
-                            My expertise lies in Web Application Penetration Testing, utilizing industry-standard tools like Burp Suite, Metasploit, and SQLMap. Beyond breaking systems, I build them—leveraging my skills in <span class="text-white">Java, React, and Android Development</span> to create secure applications.
+                            My expertise lies in Web Application Penetration Testing, utilizing industry-standard tools like Burp Suite, Metasploit, and SQLMap. Beyond breaking systems, I build them—leveraging my skills in <span class="text-white">Java, React, and Android Development</span>.
                         </p>
                     </div>
 
-                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-                        <div class="flex items-center gap-3 p-4 border border-gray-800 bg-card/50 hover:border-primary transition-colors">
-                            <i data-lucide="shield" class="text-primary h-5 w-5"></i>
-                            <div>
-                                <div class="text-primary text-xs font-bold">CEH</div>
-                                <div class="text-gray-400 text-[10px]">Certified Ethical Hacker</div>
-                            </div>
+                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 mt-8">
+                        <div class="p-4 border border-white/5 bg-white/5 rounded transition-all tilt-card">
+                            <i data-lucide="shield-check" class="text-primary mb-3 h-6 w-6 mx-auto md:mx-0"></i>
+                            <h3 class="text-white font-bold text-sm mb-1">CEH Certified</h3>
+                            <p class="text-xs text-muted">Certified Ethical Hacker</p>
                         </div>
-                        <div class="flex items-center gap-3 p-4 border border-gray-800 bg-card/50 hover:border-primary transition-colors">
-                            <i data-lucide="box" class="text-primary h-5 w-5"></i>
-                            <div>
-                                <div class="text-primary text-xs font-bold">VAPT Specialist</div>
-                                <div class="text-gray-400 text-[10px]">Vulnerability Assessment</div>
-                            </div>
-                        </div>
-                        <div class="flex items-center gap-3 p-4 border border-gray-800 bg-card/50 md:col-span-2 hover:border-primary transition-colors">
-                            <i data-lucide="graduation-cap" class="text-primary h-5 w-5"></i>
-                            <div>
-                                <div class="text-primary text-xs font-bold">BCA</div>
-                                <div class="text-gray-400 text-[10px]">GLA University (2024-2027)</div>
-                            </div>
+                        <div class="p-4 border border-white/5 bg-white/5 rounded transition-all tilt-card">
+                            <i data-lucide="crosshair" class="text-primary mb-3 h-6 w-6 mx-auto md:mx-0"></i>
+                            <h3 class="text-white font-bold text-sm mb-1">VAPT Specialist</h3>
+                            <p class="text-xs text-muted">Web & Network Security</p>
                         </div>
                     </div>
                 </div>
@@ -223,92 +195,70 @@
         </div>
     </section>
 
-    <section id="skills" class="py-16 md:py-24 bg-[#050505] border-t border-gray-900">
+    <section id="skills" class="py-16 md:py-32 relative border-t border-white/5">
         <div class="container max-w-6xl mx-auto px-4 md:px-6">
-            <div class="text-center mb-12 md:mb-16">
-                <h2 class="text-3xl md:text-4xl font-display font-bold text-white mb-2 uppercase">
-                    <span class="text-primary">02.</span> CAPABILITIES
+            <div class="mb-12 text-center md:text-left" data-aos="fade-up">
+                <h2 class="text-2xl md:text-3xl font-display font-bold text-white mb-2">
+                    <span class="text-primary">02.</span> TECHNICAL_ARSENAL
                 </h2>
-                <p class="text-gray-600 font-mono text-xs">/usr/bin/skills --verbose</p>
+                <p class="text-xs text-muted font-mono">/root/tools/capabilities</p>
             </div>
 
-            <div class="grid md:grid-cols-2 gap-12 md:gap-16">
+            <div class="grid md:grid-cols-2 gap-12 md:gap-20">
                 <div class="space-y-8">
-                    <h3 class="text-lg text-white font-display uppercase mb-6 flex items-center gap-2">
-                        <span class="text-primary">>_</span> Core_Competencies
-                    </h3>
+                    <div class="group" data-aos="fade-right" data-aos-delay="100">
+                        <div class="flex justify-between mb-3 text-xs font-bold tracking-widest text-gray-400 group-hover:text-primary transition-colors">
+                            <span>VAPT AUDITING</span>
+                            <span>90%</span>
+                        </div>
+                        <div class="h-1 bg-white/10 w-full overflow-hidden">
+                            <div class="h-full bg-primary w-[90%] transform -translate-x-full animate-[slideIn_1.5s_ease-out_forwards]"></div>
+                        </div>
+                    </div>
+
+                    <div class="group" data-aos="fade-right" data-aos-delay="200">
+                        <div class="flex justify-between mb-3 text-xs font-bold tracking-widest text-gray-400 group-hover:text-primary transition-colors">
+                            <span>WEB APP SECURITY</span>
+                            <span>85%</span>
+                        </div>
+                        <div class="h-1 bg-white/10 w-full overflow-hidden">
+                            <div class="h-full bg-primary w-[85%] transform -translate-x-full animate-[slideIn_1.5s_ease-out_forwards] delay-100"></div>
+                        </div>
+                    </div>
+
+                    <div class="group" data-aos="fade-right" data-aos-delay="300">
+                        <div class="flex justify-between mb-3 text-xs font-bold tracking-widest text-gray-400 group-hover:text-primary transition-colors">
+                            <span>NETWORK SECURITY</span>
+                            <span>80%</span>
+                        </div>
+                        <div class="h-1 bg-white/10 w-full overflow-hidden">
+                            <div class="h-full bg-primary w-[80%] transform -translate-x-full animate-[slideIn_1.5s_ease-out_forwards] delay-200"></div>
+                        </div>
+                    </div>
+                </div>
+
+                <div data-aos="fade-left" class="text-center md:text-left">
+                     <div class="mb-8">
+                        <h3 class="text-sm font-bold text-white uppercase tracking-widest mb-4 border-l-0 md:border-l-2 border-primary md:pl-3 inline-block md:block">Arsenal</h3>
+                        <div class="flex flex-wrap justify-center md:justify-start gap-2">
+                            <span class="skill-tag">Burp Suite</span>
+                            <span class="skill-tag">Metasploit</span>
+                            <span class="skill-tag">OWASP ZAP</span>
+                            <span class="skill-tag">Nmap</span>
+                            <span class="skill-tag">Wireshark</span>
+                            <span class="skill-tag">SQLMap</span>
+                            <span class="skill-tag">Kali Linux</span>
+                            <span class="skill-tag">Hydra</span>
+                        </div>
+                    </div>
                     
                     <div>
-                        <div class="flex justify-between mb-2 text-[10px] font-bold tracking-widest uppercase">
-                            <span class="text-primary">[VAPT AUDITING]</span>
-                            <span class="text-gray-500">90%</span>
-                        </div>
-                        <div class="h-2 bg-gray-900 w-full">
-                            <div class="skill-progress h-full bg-primary shadow-[0_0_10px_rgba(0,255,65,0.5)] w-0" data-width="90%"></div>
-                        </div>
-                    </div>
-
-                    <div>
-                        <div class="flex justify-between mb-2 text-[10px] font-bold tracking-widest uppercase">
-                            <span class="text-primary">[WEB APP SECURITY]</span>
-                            <span class="text-gray-500">85%</span>
-                        </div>
-                        <div class="h-2 bg-gray-900 w-full">
-                            <div class="skill-progress h-full bg-primary shadow-[0_0_10px_rgba(0,255,65,0.5)] w-0" data-width="85%"></div>
-                        </div>
-                    </div>
-
-                    <div>
-                        <div class="flex justify-between mb-2 text-[10px] font-bold tracking-widest uppercase">
-                            <span class="text-primary">[NETWORK SECURITY]</span>
-                            <span class="text-gray-500">80%</span>
-                        </div>
-                        <div class="h-2 bg-gray-900 w-full">
-                            <div class="skill-progress h-full bg-primary shadow-[0_0_10px_rgba(0,255,65,0.5)] w-0" data-width="80%"></div>
-                        </div>
-                    </div>
-
-                    <div>
-                        <div class="flex justify-between mb-2 text-[10px] font-bold tracking-widest uppercase">
-                            <span class="text-primary">[SECURE DEVELOPMENT]</span>
-                            <span class="text-gray-500">75%</span>
-                        </div>
-                        <div class="h-2 bg-gray-900 w-full">
-                            <div class="skill-progress h-full bg-primary shadow-[0_0_10px_rgba(0,255,65,0.5)] w-0" data-width="75%"></div>
-                        </div>
-                    </div>
-                </div>
-
-                <div>
-                    <div class="mb-10">
-                        <h3 class="text-lg text-white font-display uppercase mb-6 flex items-center gap-2">
-                            <i data-lucide="lock" class="text-primary w-4 h-4"></i> Arsenal
-                        </h3>
-                        <div class="flex flex-wrap gap-2">
-                            <span class="tool-badge">Burp Suite</span>
-                            <span class="tool-badge">Metasploit</span>
-                            <span class="tool-badge">OWASP ZAP</span>
-                            <span class="tool-badge">Nmap</span>
-                            <span class="tool-badge">Wireshark</span>
-                            <span class="tool-badge">SQLMap</span>
-                            <span class="tool-badge">Kali Linux</span>
-                            <span class="tool-badge">OSINT</span>
-                            <span class="tool-badge">Hydra</span>
-                        </div>
-                    </div>
-
-                    <div class="mb-10">
-                        <h3 class="text-lg text-white font-display uppercase mb-6 flex items-center gap-2">
-                            <i data-lucide="code" class="text-primary w-4 h-4"></i> Development
-                        </h3>
-                        <div class="flex flex-wrap gap-2">
-                            <span class="tool-badge text-white border-white/20">Java</span>
-                            <span class="tool-badge text-white border-white/20">C++</span>
-                            <span class="tool-badge text-white border-white/20">JavaScript</span>
-                            <span class="tool-badge text-white border-white/20">React</span>
-                            <span class="tool-badge text-white border-white/20">MongoDB</span>
-                            <span class="tool-badge text-white border-white/20">Firebase</span>
-                            <span class="tool-badge text-white border-white/20">XML</span>
+                        <h3 class="text-sm font-bold text-white uppercase tracking-widest mb-4 border-l-0 md:border-l-2 border-white/50 md:pl-3 inline-block md:block">Development</h3>
+                        <div class="flex flex-wrap justify-center md:justify-start gap-2">
+                            <span class="skill-tag border-white/20 text-gray-400">Java</span>
+                            <span class="skill-tag border-white/20 text-gray-400">React</span>
+                            <span class="skill-tag border-white/20 text-gray-400">Android</span>
+                            <span class="skill-tag border-white/20 text-gray-400">MongoDB</span>
                         </div>
                     </div>
                 </div>
@@ -316,125 +266,120 @@
         </div>
     </section>
 
-    <section id="projects" class="py-16 md:py-24 bg-black border-t border-gray-900 relative">
+    <section id="projects" class="py-16 md:py-32 relative border-t border-white/5 bg-black">
         <div class="container max-w-6xl mx-auto px-4 md:px-6 relative z-10">
-            <div class="text-center mb-12 md:mb-16">
-                <h2 class="text-3xl md:text-4xl font-display font-bold text-white mb-2 uppercase">
+            <div class="text-center mb-12 md:mb-16" data-aos="fade-up">
+                <h2 class="text-2xl md:text-3xl font-display font-bold text-white mb-2">
                     <span class="text-primary">03.</span> SELECTED_OPERATIONS
                 </h2>
-                <p class="text-gray-600 font-mono text-xs">/var/www/portfolio/projects</p>
+                <p class="text-xs text-muted font-mono">/var/www/portfolio/projects</p>
             </div>
 
-            <div class="grid md:grid-cols-2 gap-6 md:gap-8">
-                <div class="group relative border border-gray-800 bg-card hover:border-primary/50 transition-all duration-300 overflow-hidden">
-                    <div class="absolute inset-0 bg-primary/5 translate-y-full group-hover:translate-y-0 transition-transform duration-500"></div>
-                    <div class="p-6 md:p-8 relative z-10">
-                        <div class="flex justify-between items-start mb-6">
-                            <i data-lucide="server" class="h-8 w-8 text-primary"></i>
-                            <span class="text-xs font-mono text-gray-500 border border-gray-800 px-2 py-1 rounded">AUDIT</span>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <div class="group relative border border-white/10 bg-white/5 rounded-lg overflow-hidden hover:border-primary/50 transition-all duration-300">
+                    <div class="p-6 md:p-8">
+                        <div class="flex justify-between items-start mb-4">
+                            <div class="p-2 bg-black rounded border border-white/10 text-primary">
+                                <i data-lucide="server" class="h-6 w-6"></i>
+                            </div>
+                            <span class="text-[10px] font-mono text-muted border border-white/10 px-2 py-1 rounded bg-black">AUDIT</span>
                         </div>
-                        <h3 class="text-xl font-bold text-white mb-3 group-hover:text-primary transition-colors">Enterprise VAPT Audits</h3>
-                        <p class="text-sm text-gray-400 font-mono mb-6 leading-relaxed">
-                            Executed comprehensive Vulnerability Assessments for 5 clients. Identified critical SQLi and XSS flaws, generating detailed reports that enhanced client security policies.
+                        <h3 class="text-lg md:text-xl font-bold text-white mb-2 group-hover:text-primary transition-colors">Enterprise VAPT Audits</h3>
+                        <p class="text-xs md:text-sm text-gray-400 font-mono mb-4 leading-relaxed">
+                            Executed comprehensive Vulnerability Assessments for 5 clients. Identified critical SQLi and XSS flaws.
                         </p>
-                        <ul class="flex flex-wrap gap-2 text-[10px] font-bold text-gray-500">
-                            <li class="px-2 py-1 bg-gray-900 rounded text-primary">Burp Suite</li>
-                            <li class="px-2 py-1 bg-gray-900 rounded text-primary">Nmap</li>
-                            <li class="px-2 py-1 bg-gray-900 rounded text-primary">Reporting</li>
-                        </ul>
+                        <div class="flex flex-wrap gap-2">
+                            <span class="skill-tag text-[10px] py-1">Burp Suite</span>
+                            <span class="skill-tag text-[10px] py-1">Nmap</span>
+                        </div>
                     </div>
                 </div>
 
-                <div class="group relative border border-gray-800 bg-card hover:border-primary/50 transition-all duration-300 overflow-hidden">
-                    <div class="absolute inset-0 bg-primary/5 translate-y-full group-hover:translate-y-0 transition-transform duration-500"></div>
-                    <div class="p-6 md:p-8 relative z-10">
-                        <div class="flex justify-between items-start mb-6">
-                            <i data-lucide="user-x" class="h-8 w-8 text-primary"></i>
-                            <span class="text-xs font-mono text-gray-500 border border-gray-800 px-2 py-1 rounded">DEFENSE</span>
+                <div class="group relative border border-white/10 bg-white/5 rounded-lg overflow-hidden hover:border-primary/50 transition-all duration-300">
+                    <div class="p-6 md:p-8">
+                        <div class="flex justify-between items-start mb-4">
+                            <div class="p-2 bg-black rounded border border-white/10 text-primary">
+                                <i data-lucide="shield-alert" class="h-6 w-6"></i>
+                            </div>
+                            <span class="text-[10px] font-mono text-muted border border-white/10 px-2 py-1 rounded bg-black">DEFENSE</span>
                         </div>
-                        <h3 class="text-xl font-bold text-white mb-3 group-hover:text-primary transition-colors">Phishing Mitigation Campaign</h3>
-                        <p class="text-sm text-gray-400 font-mono mb-6 leading-relaxed">
-                            Spearheaded a security awareness initiative. Mentored staff on identifying social engineering, resulting in a 75% decrease in successful phishing attack reports for key clients.
+                        <h3 class="text-lg md:text-xl font-bold text-white mb-2 group-hover:text-primary transition-colors">Phishing Mitigation</h3>
+                        <p class="text-xs md:text-sm text-gray-400 font-mono mb-4 leading-relaxed">
+                            Spearheaded a security awareness initiative. Mentored staff on identifying social engineering.
                         </p>
-                        <ul class="flex flex-wrap gap-2 text-[10px] font-bold text-gray-500">
-                            <li class="px-2 py-1 bg-gray-900 rounded text-primary">Social Engineering</li>
-                            <li class="px-2 py-1 bg-gray-900 rounded text-primary">Training</li>
-                            <li class="px-2 py-1 bg-gray-900 rounded text-primary">Risk Analysis</li>
-                        </ul>
+                        <div class="flex flex-wrap gap-2">
+                            <span class="skill-tag text-[10px] py-1">Training</span>
+                        </div>
                     </div>
                 </div>
 
-                <div class="group relative border border-gray-800 bg-card hover:border-primary/50 transition-all duration-300 overflow-hidden">
-                    <div class="absolute inset-0 bg-primary/5 translate-y-full group-hover:translate-y-0 transition-transform duration-500"></div>
-                    <div class="p-6 md:p-8 relative z-10">
-                        <div class="flex justify-between items-start mb-6">
-                            <i data-lucide="smartphone" class="h-8 w-8 text-primary"></i>
-                            <span class="text-xs font-mono text-gray-500 border border-gray-800 px-2 py-1 rounded">ANDROID</span>
+                <div class="group relative border border-white/10 bg-white/5 rounded-lg overflow-hidden hover:border-primary/50 transition-all duration-300">
+                    <div class="p-6 md:p-8">
+                        <div class="flex justify-between items-start mb-4">
+                            <div class="p-2 bg-black rounded border border-white/10 text-primary">
+                                <i data-lucide="smartphone" class="h-6 w-6"></i>
+                            </div>
+                            <span class="text-[10px] font-mono text-muted border border-white/10 px-2 py-1 rounded bg-black">ANDROID</span>
                         </div>
-                        <h3 class="text-xl font-bold text-white mb-3 group-hover:text-primary transition-colors">Secure Messenger App</h3>
-                        <p class="text-sm text-gray-400 font-mono mb-6 leading-relaxed">
-                            Developed an Android messaging application focusing on data privacy. Implemented secure authentication via Firebase and encrypted data storage.
+                        <h3 class="text-lg md:text-xl font-bold text-white mb-2 group-hover:text-primary transition-colors">Secure Messenger App</h3>
+                        <p class="text-xs md:text-sm text-gray-400 font-mono mb-4 leading-relaxed">
+                            Developed an Android messaging application focusing on data privacy. Implemented secure authentication via Firebase.
                         </p>
-                        <ul class="flex flex-wrap gap-2 text-[10px] font-bold text-gray-500">
-                            <li class="px-2 py-1 bg-gray-900 rounded text-primary">Java</li>
-                            <li class="px-2 py-1 bg-gray-900 rounded text-primary">XML</li>
-                            <li class="px-2 py-1 bg-gray-900 rounded text-primary">Firebase</li>
-                        </ul>
+                        <div class="flex flex-wrap gap-2">
+                            <span class="skill-tag text-[10px] py-1">Java</span>
+                            <span class="skill-tag text-[10px] py-1">Firebase</span>
+                        </div>
                     </div>
                 </div>
 
-                <div class="group relative border border-gray-800 bg-card hover:border-primary/50 transition-all duration-300 overflow-hidden">
-                    <div class="absolute inset-0 bg-primary/5 translate-y-full group-hover:translate-y-0 transition-transform duration-500"></div>
-                    <div class="p-6 md:p-8 relative z-10">
-                        <div class="flex justify-between items-start mb-6">
-                            <i data-lucide="shopping-cart" class="h-8 w-8 text-primary"></i>
-                            <span class="text-xs font-mono text-gray-500 border border-gray-800 px-2 py-1 rounded">WEB DEV</span>
+                <div class="group relative border border-white/10 bg-white/5 rounded-lg overflow-hidden hover:border-primary/50 transition-all duration-300">
+                    <div class="p-6 md:p-8">
+                        <div class="flex justify-between items-start mb-4">
+                            <div class="p-2 bg-black rounded border border-white/10 text-primary">
+                                <i data-lucide="shopping-cart" class="h-6 w-6"></i>
+                            </div>
+                            <span class="text-[10px] font-mono text-muted border border-white/10 px-2 py-1 rounded bg-black">WEB DEV</span>
                         </div>
-                        <h3 class="text-xl font-bold text-white mb-3 group-hover:text-primary transition-colors">E-Commerce Platform</h3>
-                        <p class="text-sm text-gray-400 font-mono mb-6 leading-relaxed">
-                            Full-stack development of an e-commerce site using the MERN stack. Focused on secure payment gateway integration and preventing common web vulnerabilities.
+                        <h3 class="text-lg md:text-xl font-bold text-white mb-2 group-hover:text-primary transition-colors">E-Commerce Platform</h3>
+                        <p class="text-xs md:text-sm text-gray-400 font-mono mb-4 leading-relaxed">
+                            Full-stack development of an e-commerce site using the MERN stack. Focused on secure payment gateway integration.
                         </p>
-                        <ul class="flex flex-wrap gap-2 text-[10px] font-bold text-gray-500">
-                            <li class="px-2 py-1 bg-gray-900 rounded text-primary">React</li>
-                            <li class="px-2 py-1 bg-gray-900 rounded text-primary">MongoDB</li>
-                            <li class="px-2 py-1 bg-gray-900 rounded text-primary">Node.js</li>
-                        </ul>
+                        <div class="flex flex-wrap gap-2">
+                            <span class="skill-tag text-[10px] py-1">React</span>
+                            <span class="skill-tag text-[10px] py-1">MongoDB</span>
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
     </section>
 
-    <section id="contact" class="py-24 md:py-32 bg-black border-t border-gray-900 relative overflow-hidden">
-        <div class="absolute inset-0 bg-[linear-gradient(rgba(18,18,18,0)_1px,transparent_1px),linear-gradient(90deg,rgba(18,18,18,0)_1px,transparent_1px)] bg-[size:40px_40px] [mask-image:radial-gradient(ellipse_60%_50%_at_50%_0%,#000_70%,transparent_100%)] opacity-20 pointer-events-none"></div>
+    <section id="contact" class="py-24 md:py-32 relative border-t border-white/5 bg-black overflow-hidden">
 
-        <div class="container max-w-4xl mx-auto px-6 text-center relative z-10">
-            <h2 class="text-3xl md:text-5xl font-display font-bold text-primary mb-6 uppercase tracking-wider">
-                04. ESTABLISH_UPLINK
+        <div class="container max-w-4xl mx-auto px-6 text-center relative z-10" data-aos="zoom-in-up">
+            <h2 class="text-2xl md:text-5xl font-display font-bold text-white mb-6">
+                Let's <span class="text-primary">Secure</span> Your Infrastructure
             </h2>
-            <p class="text-gray-400 font-mono mb-12 text-sm max-w-2xl mx-auto">
-                Currently available for freelance security assessments and consulting. Secure communication channels open.
+            <p class="text-gray-400 text-sm md:text-lg mb-12 max-w-xl mx-auto">
+                Available for freelance security assessments and projects and full time opportunity .
             </p>
             
-            <div class="flex justify-center gap-8 mb-12">
-                <a href="https://github.com/SachinRwwt" target="_blank" class="social-btn group">
-                    <i data-lucide="github" class="w-5 h-5"></i>
+            <a href="mailto:sachinrwwt@gmail.com" class="inline-flex items-center gap-3 px-8 py-4 bg-white text-black font-bold text-sm md:text-lg active:scale-95 transition-all duration-300 rounded-sm">
+                <i data-lucide="mail" class="w-5 h-5"></i> SACHINRWWT@GMAIL.COM
+            </a>
+
+            <div class="mt-12 flex justify-center gap-8">
+                <a href="https://github.com/SachinRwwt" target="_blank" class="text-gray-500 hover:text-white transition-colors p-2">
+                    <i data-lucide="github" class="w-6 h-6"></i>
                 </a>
-                <a href="https://www.linkedin.com/in/sachin-singh-a8ba54263/" target="_blank" class="social-btn group">
-                    <i data-lucide="linkedin" class="w-5 h-5"></i>
-                </a>
-                <a href="mailto:sachinrwwt@gmail.com" class="social-btn group">
-                    <i data-lucide="mail" class="w-5 h-5"></i>
+                <a href="https://www.linkedin.com/in/sachin-singh-a8ba54263/" target="_blank" class="text-gray-500 hover:text-white transition-colors p-2">
+                    <i data-lucide="linkedin" class="w-6 h-6"></i>
                 </a>
             </div>
 
-            <a href="mailto:sachinrwwt@gmail.com" class="text-primary font-mono text-base md:text-lg hover:underline decoration-primary underline-offset-8 tracking-widest break-all">
-                sachinrwwt@gmail.com
-            </a>
-
-            <div class="mt-16 border border-gray-800 bg-card/50 max-w-lg mx-auto p-4 text-left font-mono text-xs text-gray-500">
-                <div class="flex justify-between items-center mb-2 pb-2 border-b border-gray-800">
-                    <span>>_ user@0xS3CUR3:~</span>
+            <div class="mt-12 border border-white/10 bg-black/90 backdrop-blur max-w-lg mx-auto p-4 text-left font-mono text-xs text-gray-500 shadow-2xl rounded">
+                <div class="flex justify-between items-center mb-2 pb-2 border-b border-white/10">
+                    <span>>_ sudo.sachin:~</span>
                     <div class="flex gap-2">
                         <i data-lucide="minus" class="w-3 h-3"></i>
                         <i data-lucide="square" class="w-3 h-3"></i>
@@ -443,20 +388,39 @@
                 </div>
                 <div class="space-y-1">
                     <p>> Contact: <span class="text-gray-300">sachinrwwt@gmail.com</span></p>
-                    <p>> Location: <span class="text-gray-300">Dwarka, Delhi, India</span></p>
+                    <p>> Location: <span class="text-gray-300">India</span></p>
                     <p>> <span class="animate-pulse text-primary">_</span></p>
                 </div>
             </div>
         </div>
     </section>
 
-    <footer class="py-8 bg-black border-t border-gray-900 text-center">
+    <footer class="py-8 bg-black border-t border-white/10 text-center relative z-10">
         <p class="text-[10px] text-primary font-mono tracking-widest uppercase opacity-70">
             Designed & Developed by Sachin Singh. System Status: Online.
         </p>
-        <p class="text-[10px] text-gray-700 font-mono mt-1">© 2025 All Rights Reserved.</p>
+        <p class="text-[10px] text-gray-700 font-mono mt-1">© 2026 All Rights Reserved.</p>
     </footer>
 
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/vanilla-tilt/1.7.0/vanilla-tilt.min.js"></script>
     <script src="script.js"></script>
+    <script>
+        AOS.init({
+            once: true,
+            duration: 1000,
+            offset: 50,
+            disable: 'mobile' 
+        });
+
+        if (window.innerWidth > 768) {
+            VanillaTilt.init(document.querySelectorAll(".tilt-card"), {
+                max: 5, 
+                speed: 400,
+                glare: true,
+                "max-glare": 0.1,
+            });
+        }
+    </script>
 </body>
 </html>
